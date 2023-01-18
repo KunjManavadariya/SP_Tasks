@@ -35,14 +35,22 @@ let nestedData = {
   },
 };
 //1.
-let path = nestedData.innerData.numberData.primeNumbers;
+let path =
+  nestedData &&
+  nestedData.innerData &&
+  nestedData.innerData.numberData &&
+  nestedData.innerData.numberData.primeNumbers;
 if (path) {
   path.forEach(function (ele) {
     console.log(ele);
   });
 } else console.log('Path is not proper for Prime!');
 //2.
-path = nestedData.innerData.numberData.fibonnaci;
+path =
+  nestedData &&
+  nestedData.innerData &&
+  nestedData.innerData.numberData &&
+  nestedData.innerData.numberData.fibonnaci;
 if (path) {
   for (let ele of path) {
     ele % 2 === 0 && console.log(ele);
