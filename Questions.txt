@@ -1,15 +1,16 @@
-1. Simplify the #1 problem.
-2. In sum #2, if no value for a property, then the property should not be added.
-3. In sum #3, \n betweem the values, also the new prop should be added.
-4. Sum #4 and #5 to be done
-5. What brackets in regex do? //grouping, to store the matches in memory 
+1. Simplify the #1 problem. ✅
+2. In sum #2, if no value for a property, then the property should not be added. ✅
+3. In sum #3, \n betweem the values, also the new prop should be added. ✅✅
+4. Sum #4 and #5 to be done - #5 done #4 done ✅
+5. What brackets in regex do? //grouping, to store the matches in memory ✅
 6. In sum #9, return original object as well. Shallow copy. ✅
 7. In sum #10, hours above 36 need fix. ✅
-13. Use arr.map in sum #6
+13. Use arr.map in sum #6 ✅
 
 //JS concepts and methods
-8. const obj = Object.create({});
-9. const obj1 = Object.create(null);
+8. const obj = Object.create({}); ✅
+9. const obj1 = Object.create(null); ✅
 10. In task2_obj_sum1, in #3, need to use find method. ✅
-11. In task2_obj_sum1, in #1, If there is no object there, log something instead of showing error.
-12. In task2_obj_sum1, in #1, use forEach.
+11. In task2_obj_sum1, in #1, If there is no object there, log something instead of showing error. 
+    No use of optional chaining. ✅✅
+12. In task2_obj_sum1, in #1, use forEach. ✅

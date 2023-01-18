@@ -25,7 +25,7 @@ let nestedData = {
     order: ['first', 'second', 'third'],
     snacks: ['chips', 'fruit', 'crackers'],
     numberData: {
-      primeNumbers: [2, 3, 5, 7, 11],
+      // primeNumbers: [2, 3, 5, 7, 11],
       fibonnaci: [1, 1, 2, 3, 5, 8, 13],
     },
     addSnack: function (snack) {
@@ -35,14 +35,19 @@ let nestedData = {
   },
 };
 //1.
-for (let ele of nestedData.innerData.numberData.primeNumbers) {
-  console.log(ele);
-}
-//
+let path = nestedData.innerData.numberData.primeNumbers;
+if (path) {
+  path.forEach(function (ele) {
+    console.log(ele);
+  });
+} else console.log('Path is not proper for Prime!');
 //2.
-for (let ele of nestedData.innerData.numberData.fibonnaci) {
-  ele % 2 === 0 && console.log(ele);
-}
+path = nestedData.innerData.numberData.fibonnaci;
+if (path) {
+  for (let ele of path) {
+    ele % 2 === 0 && console.log(ele);
+  }
+} else console.log('Path is not proper for Fibonacci!');
 //3.
 console.log(nestedData.innerData.order.find(ele => ele === 'second'));
 //4.

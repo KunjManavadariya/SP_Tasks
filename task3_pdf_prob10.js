@@ -10,4 +10,5 @@ timeTo12(24);
 timeTo12(0);
 timeTo12(12);
 timeTo12(36);
+timeTo12(37);
 //greater than 36 gives wrong result

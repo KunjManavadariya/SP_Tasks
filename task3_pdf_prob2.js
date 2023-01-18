@@ -9,11 +9,13 @@
     const values = ele.split(',');
     resultArray.push(
       keys.reduce(function (acc, curr, index) {
-        acc[curr] = values[index];
+        if (values[index]) {
+          acc[curr] = values[index];
+        }
         return acc;
       }, {})
     );
   });
   console.log(resultArray);
-})('col1,col2,col3\na,b,g\nc,d\ne,f,h');
+})('col1,col2,col3\na,b\nc,d\ne,f,h');
 //if no value for a property, then the property should not be added
