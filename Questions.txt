@@ -18,7 +18,13 @@
 //node
 1. Koa JS and routing with babel ✅
 2. Nodemon setup and build with start ✅
-3. Configuring POSTMAN environment variables, workspace, etc.
+3. Configuring POSTMAN environment variables, workspace, etc. 
 4. Twitter API returning first latest post for a given hastag. ❗
 5. JWT authentication
 6. Eslint npm
+
+//Twitter API
+1. Implement middlewares for validating hashtags✅
+2. Search and get all the latest tweets available
+3. Make an array of images if there are multiple images.
+4. Go through jest Unit Testing
