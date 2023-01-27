@@ -1,7 +1,5 @@
 import { mathOperations } from './func';
-import axios from 'axios';
 import { helper } from '../helpers/helper';
-jest.mock('axios');
 
 describe('Function tests', () => {
   test('Sum verifier', () => {
@@ -22,7 +20,7 @@ describe('Function tests', () => {
     expect(result).toBe(Infinity);
   });
   test('Testing API', async () => {
-    const data2 = await helper('google');
-    expect(typeof data2).toBe('object');
+    const data = await helper('google');
+    expect(typeof data).toBe('object');
   });
 });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import env from 'dotenv';
 env.config();
-const config = {
+export const config = {
   headers: {
     Authorization: `Bearer ${process.env.bearer}`,
   },

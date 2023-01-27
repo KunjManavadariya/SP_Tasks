@@ -59,9 +59,8 @@ export const searchHashtag = async ctx => {
         imgURL: URL,
       };
 
-      ele.possibly_sensitive && (temp['sensitive_content'] = true);
-      //Push an object with the collected data
-      if (!temp.sensitive_content) latest.push(temp);
+      //Push an object with the collected data if data is not sensitive
+      if (!ele.possibly_sensitive) latest.push(temp);
     });
 
   // Output;

@@ -10,3 +10,4 @@ app.use(koaBodyParser()).use(router.routes()).use(router.allowedMethods());
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
+export { app };
