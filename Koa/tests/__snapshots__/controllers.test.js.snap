@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing routes Default route 1`] = `
+{
+  "message": "Error in URL, no page found at the given URL. Check hashtag and enter proper URL again!",
+  "status": 404,
+  "success": false,
+}
+`;
+
+exports[`Testing routes Error in hashtags 1`] = `
+{
+  "message": "Error in Hashtag. Enter a valid hashtag without spaces, hashtag or punctuation",
+  "status": 404,
+  "success": false,
+}
+`;
+
+exports[`Testing routes Gibrish hashtags 1`] = `
+{
+  "message": "No tweet found with the given hashtag. Try giving a more commonly used hashtag.",
+  "status": 404,
+  "success": false,
+}
+`;
+
+exports[`Testing routes Helper Axios testing 1`] = `
+{
+  "error": [AxiosError: Request failed with status code 400],
+}
+`;
+
+exports[`Testing routes Helper Axios testing 2`] = `
+{
+  "error": [AxiosError: Request failed with status code 503],
+}
+`;
+
+exports[`Testing routes Helper Axios testing 3`] = `
+{
+  "meta": {
+    "result_count": 0,
+  },
+}
+`;
+
+exports[`Testing routes Helper Axios testing 4`] = `
+{
+  "meta": {
+    "result_count": 0,
+  },
+}
+`;
+
+exports[`Testing routes Helper Axios testing 5`] = `
+{
+  "meta": {
+    "result_count": 0,
+  },
+}
+`;
