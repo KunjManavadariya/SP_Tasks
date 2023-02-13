@@ -1,6 +1,12 @@
 import jwt from "jsonwebtoken";
 import md5 from "md5";
 import env from "dotenv";
+import { conn, client } from "../db";
+let db;
+conn().then(async () => {
+  db = await client().db("ideaboard");
+});
+
 env.config();
 
 export const users = [];
@@ -22,7 +28,7 @@ export const newUser = async (ctx) => {
   user.boards = [];
   const hash = await md5(user.password);
   user.password = hash;
-  users.push(user);
+  await db.insertOne(user);
   ctx.body = message(
     true,
     `Successfully registered a new user with username ${user.username}!`
