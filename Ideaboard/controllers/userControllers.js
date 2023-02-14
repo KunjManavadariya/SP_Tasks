@@ -1,38 +1,32 @@
 import jwt from "jsonwebtoken";
 import md5 from "md5";
 import env from "dotenv";
-import { conn, client } from "../db";
-let db;
-conn().then(async () => {
-  db = await client().db("ideaboard");
-});
-
+import { db } from "../db";
+import { ObjectID } from "bson";
+import {
+  getAllUsers,
+  delUser,
+  findUserById,
+  IsUnique,
+  updateUserDetails,
+} from "../database/userQueries";
+import { badRequest } from "../errors/badRequest";
+import { genError } from "../errors/generalError";
 env.config();
 
-export const users = [];
-export const message = function (success, text) {
-  return { success: success, message: text };
-};
-
-export const allUsers = async (ctx) => {
-  const res = await users.map((user) => {
-    const { username, email, boards, joined_at } = user;
-    return { username, email, boards, joined_at };
-  });
-  ctx.body = res;
-};
+export const message = (success, text) => ({ success, message: text });
 
 export const newUser = async (ctx) => {
   const user = ctx.request.body;
   user.joined_at = new Date(new Date().getTime() + 19800000);
   user.boards = [];
-  const hash = await md5(user.password);
-  user.password = hash;
-  await db.insertOne(user);
-  ctx.body = message(
-    true,
-    `Successfully registered a new user with username ${user.username}!`
-  );
+  const hash = md5(user.password);
+  hash && (user.password = hash);
+  (await db.collection("users").insertOne(user)) &&
+    (ctx.body = {
+      success: true,
+      message: "Successfully inserted user.",
+    });
 };
 
 export const loginUser = async (ctx) => {
@@ -41,36 +35,42 @@ export const loginUser = async (ctx) => {
     expiresIn: "20m",
   });
   ctx.body = message(true, "Successfully logged you in!");
-  ctx.body.token = token;
+  token && (ctx.body.token = token);
+};
+
+export const allUsers = async (ctx) => {
+  const data = await getAllUsers();
+  data
+    ? (ctx.body = data)
+    : genError(ctx, "Can't fetch users. Try again later.");
 };
 
 export const updateUser = async (ctx) => {
-  const id = ctx.params.id;
+  const id = ctx.request.params.id;
   const updUser = ctx.request.body;
-  const foundUser = users.find((user) => user.username === id);
+  const foundUser = await findUserById(id);
   if (!foundUser) {
     ctx.status = 400;
     ctx.body = message(false, "No user found with given ID!");
     return;
   }
-  if (foundUser.email === updUser.email) {
-  }
-  foundUser.username = updUser.username;
-  foundUser.email = updUser.email;
-  foundUser.password = updUser.password;
-  ctx.body = message(true, "Successfully updated user details");
+  (await IsUnique(
+    new ObjectID(updUser._id),
+    updUser.username,
+    updUser.email,
+    ctx
+  )) &&
+    updateUserDetails(new ObjectID(updUser._id), updUser) &&
+    (ctx.body = message(true, "Successfully updated user details"));
 };
 
 export const deleteUser = async (ctx) => {
   const id = ctx.request.params.id;
-  const foundUser = users.find((user) => {
-    return user.username === id;
-  });
+  const foundUser = await findUserById(id);
   if (!foundUser) {
-    ctx.status = 400;
-    ctx.body = message(false, "No user found with given ID!");
+    badRequest(ctx, "No user found with given ID!");
     return;
   }
-  users.splice(users.indexOf(foundUser), 1);
-  ctx.body = message(true, `Successfully deleted the user with id ${id}!`);
+  (await delUser(id)) &&
+    (ctx.body = message(true, `Successfully deleted the user with id ${id}!`));
 };

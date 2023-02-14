@@ -1,12 +1,24 @@
-import * as mongodb from "mongodb";
+import { MongoClient } from "mongodb";
 
-const MongoClient = mongodb.MongoClient;
 const uri = "mongodb://localhost:27017/";
-export const client = new MongoClient(uri);
-export const conn = async function () {
-  try {
+
+let client, db;
+
+async function connectToDb() {
+  if (!client) {
+    client = new MongoClient(uri, { useNewUrlParser: true });
     await client.connect();
-  } catch (err) {
-    console.log(err);
+    db = client.db("ideaboard");
   }
-};
+  return client;
+}
+
+connectToDb()
+  .then(() => {
+    console.log("Database Connected...");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+export { db };
